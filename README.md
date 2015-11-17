@@ -27,10 +27,9 @@ This assumes you already have either a Heroku app, or some other app in a Bitbuc
 
 ###### Using a DB? Set it up to date!
 
-6. Builds db schema+migrations: `rake db:migrate`
-7. Inputs db seeds (default values): `rake db:seeds`
+Initially you can just run: `rake db:setup` (this will trigger db:create, db:schema:load, db:seed)
 
-It could be that you'd rather [get a real DB dump from Production](#get-prod-db), though.
+But if you want it to be just like Production, it's likely you'd rather [get a real DB dump from Production](#get-prod-db), though.
 
 ###### Run it
 
