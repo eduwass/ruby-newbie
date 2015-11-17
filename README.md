@@ -46,7 +46,7 @@ $ curl -o latest.dump `heroku pg:backups public-url`
 Import Prod DB to Dev DB:
 
 #### Syncing DBs between Development & Heroku/Production
-##### 😀 From Production to Development
+##### 😊 From Production to Development
 This is the standard procedure to get your dev DB up to date.
 
 ##### 😱 From Development to Production
