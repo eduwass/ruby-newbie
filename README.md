@@ -47,10 +47,10 @@ Import Prod DB to Dev DB:
 
 #### Syncing DBs between Development & Heroku/Production
 ##### 😊 From Production to Development
-This is the standard procedure to get your dev DB up to date.
+😊 This is the standard procedure to get your dev DB up to date.
 
 ##### 😱 From Development to Production
-This will *upload your local DB to Production*, you sure you wanna do this?
+😱This will *upload your local DB to Production*, you sure you wanna do this?
 
 Troubleshooting
 ------
