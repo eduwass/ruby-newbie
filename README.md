@@ -1,8 +1,8 @@
 # :gem: Ruby newbie :gem:
 My own collection of TL;DR notes for starting Ruby on Rails + Heroku development.
 
-Note: I'm using a MacBook Pro (Retina, 13-inch, Mid 2014) with Yosemite,
-and my software background is mainly being a LAMP backend dev
+Disclaimer: I made this notes while using a  MacBook Pro (Retina, 13-inch, Mid 2014) with Yosemite,
+and my software background is mainly being a LAMP backend dev. This is a quickstart guide I made for my own learning purposes, so this might not work for you, but if it does, buy me a beer or something.
 
 Initial Setup
 ------
