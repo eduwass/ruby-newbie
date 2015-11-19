@@ -90,9 +90,11 @@ Here's a brief list of someones I found to be useful:
 
 #### Initial Design / Scaffolding
 * `rails g model foo` Creates a new model class Foo with a skeleton class definition in app/models/foo.rb and a skeletal migration in db/migrate/*_create_foos.rb.
+* `rails generate model ad name:string description:text price:decimal seller_id:integer email:string img_url:string` A more specific new model Generator
 * `rails g controller foo a b` Creates a new controller class FooController with a skeleton class definition in app/controllers/foo_controller.rb. It also creates skeleton action methods a and b in the controller, plus skeleton views in the files app/views/foo/a.html.erb and app/views/foo/a.html.erb. If a and b are omitted then the controller is created with no actions or views.
 
 #### Migrations
+Migrations allow you to update the model structure in a secure way.
 Remember to run migrations after you create them with `rake db:migrate`
 * `rails g migration foo` Creates a new migration in the file db/migrate/*_foo.rb
 * `rails g migration AddFieldsToRoom title:string body:text published:boolean` Adds fields to existing Model
