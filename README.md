@@ -11,12 +11,14 @@ Initial Setup
 This assumes you already have either a Heroku app, or some other app in a Bitbucket/Github repo.
 
 ##### a) Cloning a Heroku app repo to your local dev env:
+Heroku will provide its own git servers, so you don't necesarily need another git repo.
 1. Install the [Heroku Mac Toolbelt](https://toolbelt.heroku.com/download/osx)
 2. Login wiht your Heroku creds: `heroku login`
 3. Go ahead and clone your app: `heroku git:clone -a APPNAME`
 4. You can now deploy to Heroku like this: `git push heroku master`
 
-##### b) Deploying your app from Bitbucket/Github to Heroku
+##### b) Import your existing Bitbucket/Github app to Heroku
+If you already have your app in another git repo, this is probably what you want.
 1. Create an entry for the app in heroku (assuming its not there already)
 2. Add the 'heroku' remote to your git repo: `heroku git:remote -a APPNAME` (you can check if the new remote was added succesfully using `git remote -v)
 3. You can now deploy to Heroku like this: `git push heroku master`
