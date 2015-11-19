@@ -1,5 +1,4 @@
-💎
-# Ruby newbie
+# :gem: Ruby newbie :gem:
 My own collection of TL;DR notes for starting Ruby on Rails + Heroku development.
 
 Note: I'm using a MacBook Pro (Retina, 13-inch, Mid 2014) with Yosemite,
