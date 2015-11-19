@@ -49,8 +49,12 @@ Import Prod DB to Dev DB:
 ##### From Production to Development
 😊 This is the standard procedure to get your dev DB up to date.
 
+-- to do --
+
 ##### From Development to Production
 😱This will *upload your local DB to Production*, you sure you wanna do this?
+
+-- to do --
 
 Useful commands
 ------
