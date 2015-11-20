@@ -126,6 +126,8 @@ These are the possible **Association Types**:
 * `has_one :through`
 * `has_and_belongs_to_many`
 
+This is very well explained in [The Types of Associations (Docs)](http://guides.rubyonrails.org/association_basics.html#the-has-many-through-association), you should read it before you start modelling.
+
 #### Migrations
 Migrations are a convenient way to alter your database schema over time in a consistent and easy way.
 You usually generate them using `rails g migration` and run them with `rake db:migrate`, take a look at the next two sections ( [Useful command](#useful-commands) and [Generators](#generators) ) to see some simple examples.
