@@ -1,5 +1,5 @@
 # :gem: Ruby newbie :gem:
-My own collection of TL;DR notes for starting Ruby on Rails + Heroku development.
+My own collection of TL;DR quickstart notes for starting Ruby on Rails + Heroku development.
 
 Disclaimer: I made this notes while using a  MacBook Pro (Retina, 13-inch, Mid 2014) with Yosemite,
 and my software background is mainly being a LAMP backend dev. This is a quickstart guide I made for my own learning purposes, so this might not work for you, but if it does, buy me a beer or something.
@@ -61,6 +61,106 @@ Import Prod DB to Dev DB:
 
 -- to do --
 
+
+Directory Structure
+------
+
+path | what it is
+------------- | -------------
+`./app` | 90% of your application code goes here. Your models, views, controllers, mailers, and workers (if you're using Resque) are organized inside app. Feel free to make your own subdirectories.
+`./bin` | Where binstubs -- gem executables wrapped for use in your app's environment -- live
+`./config` |  Set up your database, your routes, deployment environments, i18n localization here. For all things related to configuring your app.
+`./config.ru` | This is the file that links Rack with Rails.
+`./db` |  Your migrations, your schema.rb, and, if you're using SQLite, your development.sqlite database
+`./Gemfile` and `./Gemfile.lock` |  Used by bundler to know what gems your app needs
+`./lib` | A wasteland that's appended onto the load path. Except for custom rake tasks in `./lib`/tasks, I've never seen code in lib that shouldn't be somewhere else. Don't put code here.
+`./log` | Where your log files go
+`./public` |  Anything put here will be available to the world as http://www.myapp.com/filename. Things like 500.html go here, because this directory still works when your app crashes. You can also serve out static assets, like CSS files or images. Feel free to make subdirectories.
+`./Rakefile` |  The Rakefile is responsible for defining all of those basic Rails tasks, like db:migrate, when you call rake from the command line. The only justified reason I've seen for munging this file is when you want to load in a limited subset of Rails (such as for Resque).
+`./README.rdoc` | The most important file in a Rails app. Use it to document how your app works, how to run it in development, etc.
+`./test` |  The most useless folder in Rails. 99% of the time, testing is for chumps. Use your limited time in life to do something meaningful.
+`./tmp` | A toiletbowl for precompiled assets, pid files, and session files. Don't put anything permanent here, because the toilet flushes.
+`./vendor` |  3rd party code, like gems not managed by bundle or CSS libraries
+
+Models - Active Record
+------
+Active Record is Ruby's Model definition system.
+It abstracts all database operations for us.
+
+This is a very short intro, check the official [ActiveRecord Manual](http://guides.rubyonrails.org/active_record_basics.html) for more info
+
+#### Data types:
+* `:binary`
+* `:boolean`
+* `:date`
+* `:datetime`
+* `:decimal`
+* `:float`
+* `:integer`
+* `:primary_key`
+* `:references`
+* `:string`
+* `:text`
+* `:time`
+* `:timestamp`
+
+#### Associations
+
+Associations are the way in which we relate Models in Active Record.
+How exactly does this look? Well, when you define your Models, you'd do something like this:
+```ruby
+class Customer < ActiveRecord::Base
+  has_many :orders, dependent: :destroy
+end
+ 
+class Order < ActiveRecord::Base
+  belongs_to :customer
+end
+```
+
+These are the possible **Association Types**:
+* `belongs_to`
+* `has_one`
+* `has_many`
+* `has_many :through`
+* `has_one :through`
+* `has_and_belongs_to_many`
+
+#### Migrations
+Migrations are a convenient way to alter your database schema over time in a consistent and easy way.
+You usually generate them using `rails g migration` and run them with `rake db:migrate`, take a look at the next two sections ( [Useful command](#useful-commands) and [Generators](#generators) ) to see some simple examples.
+
+#### Query Interface
+So if we don't have access to SQL, how do we query stuff? ActiveRecord provides methods for this, check the [docs](http://guides.rubyonrails.org/active_record_querying.html) for details.
+
+But here are some simple examples to get an overview:
+
+Ruby Expression | SQL/Human equivalent
+------------- | -------------
+`client = Client.find(10)` | `SELECT * FROM clients WHERE (clients.id = 10) LIMIT 1`
+`client = Client.take` | `SELECT * FROM clients LIMIT 1`
+`client = Client.first` | `SELECT * FROM clients ORDER BY clients.id ASC LIMIT 1`
+`client = Client.last` | `SELECT * FROM clients ORDER BY clients.id DESC LIMIT 1`
+`Client.find_by first_name: 'Lifo'   or   Client.where(first_name: 'Lifo').take` | `SELECT * FROM clients WHERE first_name='Lifo'`
+`client = Client.find([1, 10])` | ` SELECT * FROM clients WHERE (clients.id IN (1,10)) `
+`Client.last(2)` | ` SELECT * FROM clients ORDER BY clients.id DESC LIMIT 2 `
+`Client.where("orders_count = ?", params[:orders])` | `SELECT * from clients WHERE orders_count = params[:orders]`
+`Client.where("last_name LIKE :l_name", {:l_name => "%#{l_name_var}%"})` | ` SELECT * FROM client WHERE last_name LIKE '%l_name_var%'`
+`Client.order(created_at: :desc)` | ` SELECT * FROM clients ORDER BY created_at DESC`
+`Client.where('id > 10').limit(20).order('id desc')` | ` SELECT * FROM articles WHERE id > 10 ORDER BY id asc LIMIT 20` 
+`Client.joins('LEFT OUTER JOIN addresses ON addresses.client_id = clients.id')` | ` SELECT clients.* FROM clients LEFT OUTER JOIN addresses ON addresses.client_id = clients.id` 
+`Client.count` | `SELECT count(*) AS count_all FROM clients`
+`Client.average("orders_count")` | `SELECT AVG(orders_count) FROM clients`
+
+**Loop over query**
+
+```ruby
+Client.find_each do |client|
+  # ...
+end
+```
+
+
 Useful commands
 ------
 * `rails new foo` Creates a new Rails applications in subdirectory foo.
@@ -100,12 +200,12 @@ Remember to run migrations after you create them with `rake db:migrate`
 * `rails g migration AddFieldsToRoom title:string body:text published:boolean` Adds fields to existing Model
 
 #### ActiveAdmin
-Note: [ActiveAdmin](http://activeadmin.info/) is a ruby gem that auto-generates admin panels for you
+Note: [ActiveAdmin](http://activeadmin.info/) is a ruby gem that auto-generates admin panels for your Ruby Models
 * `rails generate active_admin:page Thing` Registers pages with Active Admin (will create app/admin/thing.rb)
 
 Troubleshooting
 ------
-#### Succesfully installing pg gem if it failed
+#### PG Gem Fail
 IMO the best solution I found for this problem:
 
 1. Install the Postgress App (from http://postgresapp.com/ ), make it start automatically at login (preferences).
