@@ -89,6 +89,8 @@ It abstracts all database operations for us.
 
 This is a very short intro, check the official [ActiveRecord Manual](http://guides.rubyonrails.org/active_record_basics.html) for more info
 
+Also check out this [great TL;DR gist about Rails Models by rstacruz](https://gist.github.com/rstacruz/1569572) 
+
 #### Data types:
 * `:binary`
 * `:boolean`
@@ -193,6 +195,7 @@ Here's a brief list of someones I found to be useful:
 #### Initial Design / Scaffolding
 * `rails g model foo` Creates a new model class Foo with a skeleton class definition in app/models/foo.rb and a skeletal migration in db/migrate/*_create_foos.rb.
 * `rails generate model ad name:string description:text price:decimal seller_id:integer email:string img_url:string` A more specific new model Generator
+* `rails generate model Assemblies_parts assembly:references part:references` This will create a Joined table with the migration with all the foreign keys already set upm 
 * `rails g controller foo a b` Creates a new controller class FooController with a skeleton class definition in app/controllers/foo_controller.rb. It also creates skeleton action methods a and b in the controller, plus skeleton views in the files app/views/foo/a.html.erb and app/views/foo/a.html.erb. If a and b are omitted then the controller is created with no actions or views.
 
 #### Migrations
