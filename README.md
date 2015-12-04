@@ -1,4 +1,4 @@
-# :gem: Ruby newbie :gem:
+# :gem: Ruby newbie
 My own collection of TL;DR quickstart notes for starting Ruby on Rails + Heroku development.
 
 Disclaimer: I made this notes while using a  MacBook Pro (Retina, 13-inch, Mid 2014) with Yosemite,
